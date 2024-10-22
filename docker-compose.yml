@@ -1,0 +1,30 @@
+name: nougat
+services:
+  nougat:
+    image: suit0/nougat-api
+    container_name: "nougat${NOUGAT_SUBDOMAIN}"
+    restart: unless-stopped
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              device_ids: [ '0' ]
+              capabilities: [ gpu ]
+    environment:
+      - NOUGAT_BATCHSIZE=6
+    runtime: nvidia
+    ports:
+      - "${HOST_PORT}:${CONTAINER_PORT}"
+    networks:
+      traefik_network:
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.nougat${NOUGAT_SUBDOMAIN}.rule=Host(`nougat${NOUGAT_SUBDOMAIN}.${DOMAIN}`)
+      - traefik.http.routers.nougat${NOUGAT_SUBDOMAIN}.tls=true
+      - traefik.http.services.nougat${NOUGAT_SUBDOMAIN}.loadbalancer.server.port=${NOUGAT_PORT}
+
+networks:
+  # réseau utilisé par Traefik pour router les requêtes vers les service exposés à l'exterieur
+  traefik_network:
+    external: true
