@@ -33,7 +33,8 @@ def test(args):
     if args.save_path:
         os.makedirs(os.path.dirname(args.save_path), exist_ok=True)
     else:
-        logging.warning("Results can not be saved. Please provide a -o/--save_path")
+        logging.warning(
+            "Results can not be saved. Please provide a -o/--save_path")
     predictions = []
     ground_truths = []
     metrics = defaultdict(list)
@@ -71,12 +72,14 @@ def test(args):
         predictions.extend(outputs)
         ground_truths.extend(ground_truth)
         with Pool(args.batch_size) as p:
-            _metrics = p.starmap(compute_metrics, iterable=zip(outputs, ground_truth))
+            _metrics = p.starmap(
+                compute_metrics, iterable=zip(outputs, ground_truth))
             for m in _metrics:
                 for key, value in m.items():
                     metrics[key].append(value)
 
-            print({key: sum(values) / len(values) for key, values in metrics.items()})
+            print({key: sum(values) / len(values)
+                  for key, values in metrics.items()})
 
     scores = {}
     for metric, vals in metrics.items():
