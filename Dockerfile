@@ -4,11 +4,11 @@ FROM nvidia/cuda:12.1.0-base-ubuntu22.04
 RUN apt-get update && \
     apt-get install -y git python3 python3-pip wget
 
-# RUN wget https://github.com/facebookresearch/nougat/releases/download/0.1.0-small/config.json -P /app/models/small/
-# RUN wget https://github.com/facebookresearch/nougat/releases/download/0.1.0-small/pytorch_model.bin -P /app/models/small/
-# RUN wget https://github.com/facebookresearch/nougat/releases/download/0.1.0-small/special_tokens_map.json -P /app/models/small/
-# RUN wget https://github.com/facebookresearch/nougat/releases/download/0.1.0-small/tokenizer.json -P /app/models/small/
-# RUN wget https://github.com/facebookresearch/nougat/releases/download/0.1.0-small/tokenizer_config.json -P /app/models/small/
+RUN wget https://github.com/facebookresearch/nougat/releases/download/0.1.0-base/config.json -P /app/models/base/
+RUN wget https://github.com/facebookresearch/nougat/releases/download/0.1.0-base/pytorch_model.bin -P /app/models/base/
+RUN wget https://github.com/facebookresearch/nougat/releases/download/0.1.0-base/special_tokens_map.json -P /app/models/base/
+RUN wget https://github.com/facebookresearch/nougat/releases/download/0.1.0-base/tokenizer.json -P /app/models/base/
+RUN wget https://github.com/facebookresearch/nougat/releases/download/0.1.0-base/tokenizer_config.json -P /app/models/base/
 
 
 # Set the working directory to /app
