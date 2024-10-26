@@ -17,14 +17,14 @@ WORKDIR /app
 # Copy all files from current directory to /app in the container
 COPY . /app
 
-# Install the Python package via setup.py
-RUN python3 setup.py install
-
 RUN pip3 install torch torchvision torchaudio
 # Install Python dependencies
 RUN pip3 install transformers==4.38.2 \
     huggingface-hub==0.23.5 fastapi uvicorn[standard] \
-    fsspec[http]==2023.5.0 multiprocess==0.70.15 python-multipart --no-cache-dir
+    fsspec[http]==2023.5.0 multiprocess==0.70.15 python-multipart numpy==1.26.4 setuptools==70.0.0 wheel==0.38.1 --no-cache-dir
+
+# Install the Python package via p.py
+RUN python3 setup.py install
 
 # Expose the port your app will run on
 EXPOSE 8503
